@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UKB Death
-nav_order: 1
+nav_order: 2
 parent: UKB
 has_children: true
 description: "UK Person"

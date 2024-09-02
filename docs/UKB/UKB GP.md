@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UKB GP
-nav_order: 2
+nav_order: 3
 parent: UKB
 has_children: true
 description: "UK Biobank - GP"
