@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UKB
-nav_order: 1
+nav_order: 6
 description: "UK Biobank"
 has_children: true
 permalink: /docs/UKB
