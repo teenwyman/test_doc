@@ -11,7 +11,7 @@ description: "UK Person"
 
 ## Reading from UKB.baseline
 
-![](images/image02.png)
+![](images/ukb_person.png)
 
 | Destination Field | Source field | Logic | Comment field |
 | --- | --- | --- | --- |
