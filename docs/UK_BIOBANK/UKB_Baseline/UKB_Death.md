@@ -2,7 +2,7 @@
 layout: default
 title: UKB Death
 nav_order: 2
-parent: UKB
+parent: UK BIOBANK
 has_children: true
 description: "UK Death"
 ---

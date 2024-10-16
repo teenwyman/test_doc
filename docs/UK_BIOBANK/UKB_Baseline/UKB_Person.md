@@ -2,7 +2,7 @@
 layout: default
 title: UKB Person
 nav_order: 1
-parent: UKB
+parent: UK BIOBANK
 has_children: true
 description: "UK Person"
 ---

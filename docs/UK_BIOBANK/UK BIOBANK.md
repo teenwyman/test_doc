@@ -1,10 +1,10 @@
 ---
 layout: default
-title: UKB
+title: UK BIOBANK
 nav_order: 6
 description: "UK Biobank"
 has_children: true
-permalink: /docs/UKB
+permalink: /docs/UK_BIOBANK
 ---
 
 # UK Biobank ETL Documentation

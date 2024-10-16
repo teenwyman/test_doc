@@ -2,7 +2,7 @@
 layout: default
 title: UKB Location
 nav_order: 3
-parent: UKB
+parent: UK BIOBANK
 has_children: true
 description: "Location mapping from UK Biobank data"
 ---
