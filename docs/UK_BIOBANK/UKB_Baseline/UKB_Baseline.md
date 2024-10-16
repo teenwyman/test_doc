@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UKB BASELINE
-nav_order: 1
+nav_order: 2
 parent: UK BIOBANK
 has_children: true
 description: "UK Biobank Baseline ETL Documentation"
