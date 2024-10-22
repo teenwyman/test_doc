@@ -1,6 +1,6 @@
 ---
 layout: default
-title: STEM
+title: UKB CANCER to STEM
 nav_order: 2
 parent: UKB CANCER
 has_children: true
