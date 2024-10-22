@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UKB GP Observation Period
+title: Observation Period
 nav_order: 1
 parent: UKB GP
 has_children: true
