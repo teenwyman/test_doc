@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UKB Cancer Observation Period
+title: Observation Period
 nav_order: 1
 parent: UKB CANCER
 has_children: true
