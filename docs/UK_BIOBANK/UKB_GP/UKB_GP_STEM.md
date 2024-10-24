@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UKB GP to STEM
-nav_order: 2
+nav_order: 4
 parent: UKB GP
 has_children: true
 description: "UKB GP to STEM"
@@ -27,12 +27,33 @@ The STEM table is a staging area where CPRD source codes like Read codes will fi
 | start_date |  
 | end_date |  
 | start_time | 
+| days_supply |
+| sig |
+| quantity |
+| value_as_number |
+| value_as_string |
+| value_as_concept_id |
+| range_low |
+| range_high |
+| operator_concept_id |
+| qualifier_source_value |
+| qualifier_concept_id |
+| unit_source_value |
+| unit_source_concept_id |
 | measurement_event_id | 
-| meas_event_field_concept_id | 
+| meas_event_field_concept_id |
+| stem_source_table |
+| stem_source_id |
 
-## Reading from ukb_gp.gp_clinical, ukb_gp.gp_scripts 
 
-![](images/ukb_gp_to_stem.png)
+## Reading from ukb_gp.temp_gp_scripts_2 (created by linking ukb_gp.gp_scripts to CDM GOLD lookup tables) 
+Day supply information for prescriptions is essential for constructing the CDM Drug_era. However, in the source data, less than 1% of prescription records include this information. 
+To address this gap, a 'numdays' value as the day supply in CDM Drug_exposure has been assigned by linking the source data with three CDM GOLD lookup tables: ****gold_product****, ****gold_daysupply_decodes****, ****gold_daysupply_modes****. 
+These tables contain dmd code, pharmacy product name, and the most frequent prescriptions based on quantity, and pack size. 
+This approach leverages the common data source between CPRD Gold and the UK Biobank, both of which use Vision® software. 
+<span style="color: red;">****Researchers must decide whether to use the suggested day supply or define it independently.****</span>
+
+![](images/ukb_gp_scripts_to_stem.png)
 
 | Destination Field | Source field | Logic | Comment field | 
 | --- | --- | --- | --- |
@@ -40,13 +61,51 @@ The STEM table is a staging area where CPRD source codes like Read codes will fi
 | domain_id | | This should be the domain_id of the standard concept in the concept_id field. If an entity type is mapped to concept_id 0, put the domain_id as Observation. |
 | person_id | eid |  |  | 
 | visit_occurrence_id | | from visit_detail  |  | 
-| visit_detail_id | eid<br>[p40005](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40005)<br>[p40021](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40021) | Look up visit_detail_id based on the unique combination of eid, p40005 and p40021.| |
-| concept_id | [p40011](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40011)<br>[p40012](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40012)<br>[p40006](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40006)<br>[p40013](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40013) | source_value will be mapped to either ICDO3 or SNOMED Concept(s) by using ICDO3, ICD10 and ICD9CM and CANCER_ICDO3_STCM |Map source_value by using ICDO3, ICD10 and ICD9CM and CANCER_ICDO3_STCM in the follwoing sequence and conditions.<br><br>1. map the source_value: p40011/p40012-COALESCE(p40006, t1.p40013) by ICDO3.<br><br>2a. If it does not match, map p40011/p40012 by ICDO3.<br>2b. If it does not match, map p40011/p40012 by CANCER_ICDO3_STCM.<br>And step 3:<br>3a. map COALESCE(p40006, p40013) by ICDO3<br>3b. If it does not match, map p40006 by ICD10<br>3c. If it does not match, map p40013 by ICD9CM|
-| source_value | [p40011](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40011)<br>[p40012](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40012)<br>[p40006](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40006)<br>[p40013](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40013) | |
-| source_concept_id | source_value | Concept_id represents source_value in Athena |
-| type_concept_id | | [****32879 - Registry****](https://athena.ohdsi.org/search-terms/terms/32879) |
-| start_date | [p40005](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40005) | |
-| end_date | [p40005](https://biobank.ndph.ox.ac.uk/ukb/field.cgi?id=40005) | |
+| visit_detail_id | | | |
+| concept_id | drug_name<br>read_2 | COALESCE(t2.source_code, t3.source_code, t1.drug_name, t1.read_2) | |
+| source_value | drug_name<br>read_2 | COALESCE(t2.source_code, t3.source_code, t1.drug_name, t1.read_2) |
+| source_concept_id | | 0 |
+| type_concept_id | | [****32817 - EHR****](https://athena.ohdsi.org/search-terms/terms/32817) |
+| start_date | issue_date | |
+| end_date | issue_date<br>day_supply | issue_date + COALESCE(t1.days_supply, 0) |
 | start_time | | 00:00:00 |
-| measurement_event_id | cancer2.id<br>source_value |  Link the [Condition Modifiers](https://ohdsi.github.io/OncologyWG/conventions.html#:~:text=Overview%20of%20Condition%20Modifiers&text=What%20we%20are%20calling%20'Condition,using%20the%20Cancer%20Modifier%20vocabulary) by using cancer2.id | | 
-| meas_event_field_concept_id | domain_id | domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147810](https://athena.ohdsi.org/search-terms/terms/1147810)<br>domain_id = 'Observation' [1147762](https://athena.ohdsi.org/search-terms/terms/1147762) | | 
+| days_supply| quantity | | day supply information in quantity: week * 7 month * 28 <br> if day supply information doesn't exists, use numdays provided by CDM GOLD lookup tables. |
+| sig | quantity | | for reference |  
+| quantity | quantity | | |
+| unit_source_value | quantity | | 
+| stem_source_table | | gp_scripts | |
+| stem_source_id | gp_scripts.id | |
+
+## Reading from ukb_gp.gp_clinical
+
+![](images/ukb_gp_clinical_to_stem.png)
+
+| Destination Field | Source field | Logic | Comment field | 
+| --- | --- | --- | --- |
+| id | | | Autogenerate| 
+| domain_id | | This should be the domain_id of the standard concept in the concept_id field. If an entity type is mapped to concept_id 0, put the domain_id as Observation. |
+| person_id | eid |  |  | 
+| visit_occurrence_id | | from visit_detail  |  | 
+| visit_detail_id | | | |
+| concept_id | read_3 | | |
+| source_value | read_3 | | |
+| source_concept_id | | concept_id represent source_value in Athena or 0 |
+| type_concept_id | | [****32817 - EHR****](https://athena.ohdsi.org/search-terms/terms/32817) |
+| start_date | event_dt | |
+| end_date | event_dt | |
+| start_time | | 00:00:00 |
+| quantity | value1<br>value2<br>value3 | If domain_id = 'Drug' then | 
+| range_high | value1<br>value2<br>value3 | | 
+| range_low | value1<br>value2<br>value3 | | 
+| operator_concept_id | value1<br>value2<br>value3 | | 
+| unit_concept_id | |
+| unit_source_value | value1<br>value2<br>value3 | |  
+| unit_source_concept_id | |
+| value_as_concept_id | value1<br>value2<br>value3 | |  
+| value_as_number | value1<br>value2<br>value3 | |  
+| value_as_string | value1<br>value2<br>value3 | |  
+| value_source_value | value1<br>value2<br>value3 | |  
+| qualifier_source_value | value1<br>value2<br>value3 | |  
+| qualifier_concept_id | value1<br>value2<br>value3 | |  
+| stem_source_table | | gp_clinical | |
+| stem_source_id | gp_clinical.id | |
