@@ -33,4 +33,4 @@ description: "UKB GP to Visit Detail"
 | discharged_to_concept_id | | | 
 | preceding_visit_detail_id | | Put the visit_detail_id of the last VISIT_DETAIL | 
 | parent_visit_detail_id | | |
-| visit_occurrence_id bigint | | Put the visit_occurrence_id of the VISIT_OCCURRENCE record that the VISIT_DETAIL record belongs to | 
+| visit_occurrence_id | | Put the visit_occurrence_id of the VISIT_OCCURRENCE record that the VISIT_DETAIL record belongs to | 

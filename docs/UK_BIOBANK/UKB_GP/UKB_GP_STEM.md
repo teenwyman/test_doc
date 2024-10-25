@@ -42,6 +42,8 @@ The STEM table is a staging area where CPRD source codes like Read codes will fi
 | unit_source_concept_id |
 | measurement_event_id | 
 | meas_event_field_concept_id |
+| observation_event_id |
+| obs_event_field_concept_id |
 | stem_source_table |
 | stem_source_id |
 
@@ -51,7 +53,11 @@ Day supply information for prescriptions is essential for constructing the CDM D
 To address this gap, a 'numdays' value as the day supply in CDM Drug_exposure has been assigned by linking the source data with three CDM GOLD lookup tables: ****gold_product****, ****gold_daysupply_decodes****, ****gold_daysupply_modes****. 
 These tables contain dmd code, pharmacy product name, and the most frequent prescriptions based on quantity, and pack size. 
 This approach leverages the common data source between CPRD Gold and the UK Biobank, both of which use Vision® software. 
-<span style="color: red;">****Researchers must decide whether to use the suggested day supply or define it independently.****</span>
+
+No suggested day supply is assigned if the source data already contains day supply information or if no corresponding drugs are found in the CDM GOLD lookup tables. For cases where day supply is represented as 'month' in the source data, the day supply is calculated as a multiple of 28, which is the most frequent 'numdays' value.
+
+<span style="color: red;">****Researchers must decide whether to use the suggested day supply or define it independently.****</span> The source quantity information can be found in the 'sig' data field within CDM Drug_exposure.
+
 
 ![](images/ukb_gp_scripts_to_stem.png)
 
@@ -61,19 +67,21 @@ This approach leverages the common data source between CPRD Gold and the UK Biob
 | domain_id | | This should be the domain_id of the standard concept in the concept_id field. If an entity type is mapped to concept_id 0, put the domain_id as Observation. |
 | person_id | eid |  |  | 
 | visit_occurrence_id | | from visit_detail  |  | 
-| visit_detail_id | | | |
-| concept_id | drug_name<br>read_2 | COALESCE(t2.source_code, t3.source_code, t1.drug_name, t1.read_2) | |
-| source_value | drug_name<br>read_2 | COALESCE(t2.source_code, t3.source_code, t1.drug_name, t1.read_2) |
-| source_concept_id | | 0 |
+| visit_detail_id | | Put the visit_detail_id of the corresponding VISIT_DETAIL record. | |
+| concept_id | drug_name<br>read_2 | source_value will be mapped to Athena Standard Concept by using UKB_GP_SCRIPT_DRUG_STCM and UKB_GP_SCRIPT_READ_STCM. | |
+| source_value | drug_name<br>read_2 | use drug_name if concept_id is mapped by drug_name or read_2 if concept_id is mapped by read_2 |
+| source_concept_id | | concept_id represent unit_source_value in Athena or 0 if it doesn't exist in Athena. |
 | type_concept_id | | [****32817 - EHR****](https://athena.ohdsi.org/search-terms/terms/32817) |
 | start_date | issue_date | |
-| end_date | issue_date<br>day_supply | issue_date + COALESCE(t1.days_supply, 0) |
+| end_date | issue_date<br>*day_supply(from quantity) | issue_date + COALESCE(days_supply, 0) |
 | start_time | | 00:00:00 |
-| days_supply| quantity | | day supply information in quantity: week * 7 month * 28 <br> if day supply information doesn't exists, use numdays provided by CDM GOLD lookup tables. |
-| sig | quantity | | for reference |  
-| quantity | quantity | | |
-| unit_source_value | quantity | | 
-| stem_source_table | | gp_scripts | |
+| days_supply| quantity | extract day supply information in quantity, given that if it is represented as 'month', *28<br> if day supply information doesn't exists, use numdays provided by CDM GOLD lookup tables. | | 
+| sig | quantity | | for researchers' reference |  
+| quantity | quantity | extract numeric value in quantity | |
+| unit_concept_id | quantity | unit_source_value will be mapped to Athena Standard Concept by using UKB_GP_DEVICE_UNIT_STCM 
+| unit_source_value | quantity | extract unit in quantity | 
+| unit_source_concept_id | concept_id represent unit_source_value in Athena or 0 if it doesn't exist in Athena. |
+| stem_source_table | | 'gp_scripts' | |
 | stem_source_id | gp_scripts.id | |
 
 ## Reading from ukb_gp.gp_clinical
@@ -86,26 +94,32 @@ This approach leverages the common data source between CPRD Gold and the UK Biob
 | domain_id | | This should be the domain_id of the standard concept in the concept_id field. If an entity type is mapped to concept_id 0, put the domain_id as Observation. |
 | person_id | eid |  |  | 
 | visit_occurrence_id | | from visit_detail  |  | 
-| visit_detail_id | | | |
-| concept_id | read_3 | | |
-| source_value | read_3 | | |
-| source_concept_id | | concept_id represent source_value in Athena or 0 |
+| visit_detail_id | | Put the visit_detail_id of the corresponding VISIT_DETAIL record. | |
+| concept_id | read_2<br>read_3 | source_value will be mapped to Athena Standard Concept by using Read vocabulary and UKB_GP_CLINICAL_READ_STCM. | |
+| source_value | read_2<br>read_3 | use read_2 if concept_id is mapped by read_2 or read_3 if concept_id is mapped by read_3 | |
+| source_concept_id | read_2<br>read_3 | concept_id represent source_value in Athena or 0 if it doesn't exist in Athena. |
 | type_concept_id | | [****32817 - EHR****](https://athena.ohdsi.org/search-terms/terms/32817) |
 | start_date | event_dt | |
 | end_date | event_dt | |
 | start_time | | 00:00:00 |
-| quantity | value1<br>value2<br>value3 | If domain_id = 'Drug' then | 
-| range_high | value1<br>value2<br>value3 | | 
-| range_low | value1<br>value2<br>value3 | | 
-| operator_concept_id | value1<br>value2<br>value3 | | 
-| unit_concept_id | |
-| unit_source_value | value1<br>value2<br>value3 | |  
-| unit_source_concept_id | |
-| value_as_concept_id | value1<br>value2<br>value3 | |  
-| value_as_number | value1<br>value2<br>value3 | |  
-| value_as_string | value1<br>value2<br>value3 | |  
-| value_source_value | value1<br>value2<br>value3 | |  
-| qualifier_source_value | value1<br>value2<br>value3 | |  
-| qualifier_concept_id | value1<br>value2<br>value3 | |  
-| stem_source_table | | gp_clinical | |
+| quantity | value1<br>value2<br>value3 | extract numeric value in value1, value2 and value3 | 
+| range_high | value1<br>value2<br>value3 | extract the largest numeric value in value1, value2 and value3 | 
+| range_low | value1<br>value2<br>value3 | extract the lowest numeric value in value1, value2 and value3 | 
+| operator_concept_id | value1<br>value2<br>value3 | map the operator information extrated from value1, value2 and value3 to [Athena Standard Operator Concept](https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&standardConcept=Standard&page=1&pageSize=15&query=) | 
+| unit_concept_id | value1<br>value2<br>value3 | unit_source_value will be mapped to Athena Standard Concept by using UKB_GP_CLINICAL_UNIT_STCM
+| unit_source_value | value1<br>value2<br>value3 | extract the unit value in value1, value2 and value3 |  
+| unit_source_concept_id | value1<br>value2<br>value3 | concept_id represent unit_source_value in Athena or 0 if it doesn't exist in Athena. |
+| value_as_concept_id | value1<br>value2<br>value3 | map value1, value2 and value3 to Athena Standard Concept by using Read vocabulary |  
+| value_as_number | value1<br>value2<br>value3 | extract numeric value in value1, value2 and value3 |  
+| value_as_string | value1<br>value2<br>value3 | extract non-numeric value in value1, value2 and value3 |  
+| value_source_value | value1<br>value2<br>value3 | extract non-numeric value in value1, value2 and value3 |  
+| qualifier_source_value | value1<br>value2<br>value3 | extract qualifier in value1, value2 and value3 |  
+| qualifier_concept_id | value1<br>value2<br>value3 | qualifier_source_value will be mapped to [Athena Standard Qualifier Concept](https://athena.ohdsi.org/search-terms/terms?conceptClass=Qualifier+Value&invalidReason=Valid&standardConcept=Standard&page=1&pageSize=15&query=) |  
+| stem_source_table | | 'gp_clinical' | |
 | stem_source_id | gp_clinical.id | |
+| measurement_event_id | gp_clinical.id | Link the related records by using gp_clinical.id and the table name, 'gp_clinical' and put the primary key of the linked record. | |
+| meas_event_field_concept_id | | if the related records belongs to<br>domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147810](https://athena.ohdsi.org/search-terms/terms/1147810)<br>domain_id = 'Observation' [1147762](https://athena.ohdsi.org/search-terms/terms/1147762)<br>domain_id = 'Measurement' [1147138](https://athena.ohdsi.org/search-terms/terms/1147138) | 
+| observation_event_id | gp_clinical.id | Link the related records by using gp_clinical.id and the table name, 'gp_clinical' and put the primary key of the linked record.  |
+| obs_event_field_concept_id |  | if the related records belongs to<br>domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147810](https://athena.ohdsi.org/search-terms/terms/1147810)<br>domain_id = 'Observation' [1147762](https://athena.ohdsi.org/search-terms/terms/1147762)<br>domain_id = 'Measurement' [1147138](https://athena.ohdsi.org/search-terms/terms/1147138) | 
+
+
