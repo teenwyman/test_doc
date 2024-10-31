@@ -25,7 +25,7 @@ description: "UKB GP to Visit Detail"
 | visit_detail_type_concept_id | [32817-EHR](https://athena.ohdsi.org/search-terms/terms/32817) | |
 | provider_id | | |
 | care_site_id | | |
-| visit_detail_source_value | data_provider<br>SOURCE_TABLE_NAME | description of data_provider by joining [lookup626](https://biobank.ndph.ox.ac.uk/ukb/coding.cgi?id=626) - Type of source data: <br>SOURCE_TABLE_NAME = 'gp_registrations' THEN 'Registeration'<br>SOURCE_TABLE_NAME = 'gp_clinical' THEN 'Clinical'<br>SOURCE_TABLE_NAME = 'gp_scripts' THEN 'Drug Prescription' | 
+| visit_detail_source_value | data_provider<br>SOURCE_TABLE_NAME | description of data_provider by joining [lookup626](https://biobank.ndph.ox.ac.uk/ukb/coding.cgi?id=626) - Type of source data: <br>SOURCE_TABLE_NAME = 'gp_registrations' THEN 'Registration'<br>SOURCE_TABLE_NAME = 'gp_clinical' THEN 'Clinical'<br>SOURCE_TABLE_NAME = 'gp_scripts' THEN 'Drug Prescription' | 
 | visit_detail_source_concept_id | | 0 | 
 | admitted_from_concept_id | | |
 | admitted_from_source_value | | | 

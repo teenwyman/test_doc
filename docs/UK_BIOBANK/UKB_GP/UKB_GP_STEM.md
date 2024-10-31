@@ -33,6 +33,7 @@ The STEM table is a staging area where CPRD source codes like Read codes will fi
 | value_as_number |
 | value_as_string |
 | value_as_concept_id |
+| value_source_value |
 | range_low |
 | range_high |
 | operator_concept_id |
