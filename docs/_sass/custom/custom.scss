@@ -8,3 +8,9 @@
     min-width: 16.5rem;
     max-width: 16.5rem;
 }
+
+@media (min-width: 66.5rem) {
+    .side-bar+.main {
+        margin-left: 0
+	}
+}
