@@ -9,7 +9,7 @@ description: "UKB GP to STEM"
 
 # CDM Table name: stem_table
 
-The STEM table is a staging area where CPRD source codes like Read codes will first be mapped to concept_ids. The STEM table itself is an amalgamation of the OMOP event tables to facilitate record movement. This means that all fields present across the OMOP event tables are present in the STEM table. After a record is mapped and staged, the domain of the concept_id dictates which OMOP table (Condition_occurrence, Drug_exposure, Procedure_occurrence, Measurement, Observation, Device_exposure) the record will move to. Please see the STEM -> CDM mapping files for a description of which STEM fields move to which STEM tables. 
+The STEM table is a staging area where UKB GP source codes like Read codes will first be mapped to concept_ids. The STEM table itself is an amalgamation of the OMOP event tables to facilitate record movement. This means that all fields present across the OMOP event tables are present in the STEM table. After a record is mapped and staged, the domain of the concept_id dictates which OMOP table (Condition_occurrence, Drug_exposure, Procedure_occurrence, Measurement, Observation, Device_exposure) the record will move to. Please see the STEM -> CDM mapping files for a description of which STEM fields move to which STEM tables. 
 
 **Fields in the STEM table**
 
@@ -119,8 +119,8 @@ No suggested day supply is assigned if the source data already contains day supp
 | stem_source_table | | 'gp_clinical' | |
 | stem_source_id | gp_clinical.id | |
 | measurement_event_id | gp_clinical.id | Link the related records by using gp_clinical.id and the table name, 'gp_clinical' and put the primary key of the linked record. | |
-| meas_event_field_concept_id | | if the related records belongs to<br>domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147810](https://athena.ohdsi.org/search-terms/terms/1147810)<br>domain_id = 'Observation' [1147762](https://athena.ohdsi.org/search-terms/terms/1147762)<br>domain_id = 'Measurement' [1147138](https://athena.ohdsi.org/search-terms/terms/1147138) | 
+| meas_event_field_concept_id | | if the related records belongs to<br>domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147082](https://athena.ohdsi.org/search-terms/terms/1147082)<br>domain_id = 'Observation' [1147165](https://athena.ohdsi.org/search-terms/terms/1147165)<br>domain_id = 'Measurement' [1147138](https://athena.ohdsi.org/search-terms/terms/1147138) | 
 | observation_event_id | gp_clinical.id | Link the related records by using gp_clinical.id and the table name, 'gp_clinical' and put the primary key of the linked record.  |
-| obs_event_field_concept_id |  | if the related records belongs to<br>domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147810](https://athena.ohdsi.org/search-terms/terms/1147810)<br>domain_id = 'Observation' [1147762](https://athena.ohdsi.org/search-terms/terms/1147762)<br>domain_id = 'Measurement' [1147138](https://athena.ohdsi.org/search-terms/terms/1147138) | 
+| obs_event_field_concept_id |  | if the related records belongs to<br>domain_id = 'Condition' [1147127](https://athena.ohdsi.org/search-terms/terms/1147127)<br>domain_id = 'Procedure' [1147082](https://athena.ohdsi.org/search-terms/terms/1147082)<br>domain_id = 'Observation' [1147165](https://athena.ohdsi.org/search-terms/terms/1147165)<br>domain_id = 'Measurement' [1147138](https://athena.ohdsi.org/search-terms/terms/1147138) | 
 
 
