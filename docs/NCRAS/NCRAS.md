@@ -11,4 +11,5 @@ permalink: /docs/NCRAS
 
 These materials are meant to serve as documentation and reference for how the NCRAS data was converted to the OMOP Common Data Model (CDM).
 
-![](images/image01.png)
+![](images/tumour_to_cdm.png)
+![](images/treatment_to_cdm.png)

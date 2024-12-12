@@ -9,7 +9,10 @@ description: "NCRAS Tumour to STEM"
 # CDM Table name: stem_table
 
 ## Reading from NCRAS.tumour
+
 **ONLY NCRAS data within the linkage_coverage period and valid in the database linked (i.e. patients do not exists in the source_nok) to are used in our mapping.**
+
+### Cancer Modifiers
 
 ![](images/tumour_modifier_to_STEM.png)
 
@@ -17,7 +20,6 @@ All cancer diagnoses are ideally mapped to the CDM Condition. Cancer modifiers, 
 These modifiers are linked to the corresponding cancer diagnosis using the measurement_event_id field, which is set to the respective condition_occurrence_id, and the meas_event_field_concept_id, which is assigned the concept ID =[1147127](https://athena.ohdsi.org/search-terms/terms/1147127).
 However, some cancer modifiers may not be adequately represented by Athena Measurement concepts. In cases where mapping to the CDM Measurement domain is not feasible, these modifiers are mapped instead to the CDM Observation domain. 
 
-## Cancer Modifiers
 
 Fields in the STEM table
 
