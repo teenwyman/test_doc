@@ -51,7 +51,7 @@ The STEM table is a staging area where UKB GP source codes like Read codes will 
 
 ## Reading from ukb_gp.temp_gp_scripts_2 (created by linking ukb_gp.gp_scripts to CDM GOLD lookup tables) 
 Day supply information for prescriptions is essential for constructing the CDM Drug_era. However, in the source data, less than 1% of prescription records include this information. 
-To address this gap, a 'numdays' value as the day supply in CDM Drug_exposure has been assigned by linking the source data with three CDM GOLD lookup tables: ****gold_product****, ****gold_daysupply_decodes****, ****gold_daysupply_modes****. 
+To address this gap, a 'numdays' value as the day supply in CDM Drug_exposure has been assigned by linking the source data with three CDM GOLD lookup tables: **gold_product**, **gold_daysupply_decodes**, **gold_daysupply_modes**. 
 These tables contain dmd code, pharmacy product name, and the most frequent prescriptions based on quantity, and pack size. 
 This approach leverages the common data source between CPRD Gold and the UK Biobank, both of which use Vision® software. 
 
