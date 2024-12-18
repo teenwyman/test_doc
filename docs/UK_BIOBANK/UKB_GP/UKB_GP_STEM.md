@@ -57,7 +57,7 @@ This approach leverages the common data source between CPRD Gold and the UK Biob
 
 No suggested day supply is assigned if the source data already contains day supply information or if no corresponding drugs are found in the CDM GOLD lookup tables. For cases where day supply is represented as 'month' in the source data, the day supply is calculated as a multiple of 28, which is the most frequent 'numdays' value.
 
-<span style="color: red;">****Researchers must decide whether to use the suggested day supply or define it independently.****</span> The source quantity information can be found in the 'sig' data field within CDM Drug_exposure.
+<span style="color: red;">**Researchers must decide whether to use the suggested day supply or define it independently.**</span> The source quantity information can be found in the 'sig' data field within CDM Drug_exposure.
 
 
 ![](images/ukb_gp_scripts_to_stem.png)
