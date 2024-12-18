@@ -72,7 +72,7 @@ No suggested day supply is assigned if the source data already contains day supp
 | concept_id | drug_name<br>read_2 | source_value will be mapped to Athena Standard Concept by using UKB_GP_SCRIPT_DRUG_STCM and UKB_GP_SCRIPT_READ_STCM. | |
 | source_value | drug_name<br>read_2 | use drug_name if concept_id is mapped by drug_name or read_2 if concept_id is mapped by read_2 |
 | source_concept_id | | concept_id represent unit_source_value in Athena or 0 if it doesn't exist in Athena. |
-| type_concept_id | | [****32817 - EHR****](https://athena.ohdsi.org/search-terms/terms/32817) |
+| type_concept_id | | [32817 - EHR](https://athena.ohdsi.org/search-terms/terms/32817) |
 | start_date | issue_date | |
 | end_date | issue_date<br>*day_supply(from quantity) | issue_date + COALESCE(days_supply, 0) |
 | start_time | | 00:00:00 |
@@ -99,7 +99,7 @@ No suggested day supply is assigned if the source data already contains day supp
 | concept_id | read_2<br>read_3 | source_value will be mapped to Athena Standard Concept by using Read vocabulary and UKB_GP_CLINICAL_READ_STCM. | |
 | source_value | read_2<br>read_3 | use read_2 if concept_id is mapped by read_2 or read_3 if concept_id is mapped by read_3 | |
 | source_concept_id | read_2<br>read_3 | concept_id represent source_value in Athena or 0 if it doesn't exist in Athena. |
-| type_concept_id | | [****32817 - EHR****](https://athena.ohdsi.org/search-terms/terms/32817) |
+| type_concept_id | | [32817 - EHR](https://athena.ohdsi.org/search-terms/terms/32817) |
 | start_date | event_dt | |
 | end_date | event_dt | |
 | start_time | | 00:00:00 |
