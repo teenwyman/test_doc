@@ -25,5 +25,5 @@ Map p22189 (Townsend deprivation index at recruitment) to CDM Measurement.
 | measurement_type_concept_id | | [32880 - Standard algorithm](https://athena.ohdsi.org/search-terms/terms/32880) | |
 | value_as_number | p22189 | | |
 | measurement_source_value | p22189 | '189' | '189' is the source_code represents p22189 in Athena. |
-| measurement_source_concept_id | p22189 | 35810148 | [35810148](https://athena.ohdsi.org/search-terms/terms/35810148) is the concept_id of '189' in Athena |
+| measurement_source_concept_id | p22189 | [35810148](https://athena.ohdsi.org/search-terms/terms/35810148) | 35810148 is the concept_id of '189' in Athena |
 
