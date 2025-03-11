@@ -1,7 +1,7 @@
 ---
 layout: default
 title: NCRAS to STEM 
-nav_order: 1
+nav_order: 5
 parent: NCRAS
 description: "NCRAS Tumour to STEM"
 ---
@@ -34,6 +34,7 @@ Fields in the STEM table
 ## Reading from NCRAS.tumour
 
 **ONLY NCRAS data within the linkage_coverage period and valid in the database linked (i.e. patients do not exists in the source_nok) to are used in our mapping.**
+### Diagnosis
 
 ### Cancer Modifiers
 
@@ -61,4 +62,6 @@ However, some cancer modifiers may not be adequately represented by Athena Measu
 | value_source_value  | source data field name | | There are 3 sets of AJCC/UICC code in source data indentified by prefix(e.g. best_, img_, and path_) in the source data field name  | 
 | stem_source_table   | | 'Tumour-[modifier name]'  | | 
 | stem_source_id      | e_cr_id | | | 
+
+### Treatment
 

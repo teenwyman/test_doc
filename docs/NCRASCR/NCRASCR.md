@@ -1,10 +1,10 @@
 ---
 layout: default
-title: NCRAS
+title: NCRASCR 
 nav_order: 7
 description: "The Public Health England National Cancer Registration and Analysis Service (NCRAS)"
 has_children: true
-permalink: /docs/NCRAS
+permalink: /docs/NCRASCR 
 ---
 
 # The Public Health England National Cancer Registration and Analysis Service (NCRAS) ETL Documentation

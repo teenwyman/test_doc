@@ -1,7 +1,7 @@
 ---
 layout: default
 title: STEM to Episode Event
-nav_order: 3
+nav_order: 7
 parent: NCRAS
 has_children: true
 description: "NCRAS to Episode Event"
