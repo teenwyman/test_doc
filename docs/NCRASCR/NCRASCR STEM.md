@@ -1,9 +1,9 @@
 ---
 layout: default
-title: NCRAS to STEM 
+title: NCRASCR to STEM 
 nav_order: 5
-parent: NCRAS
-description: "NCRAS Tumour to STEM"
+parent: NCRASCR
+description: "NCRASCR Tumour to STEM"
 ---
 
 # CDM Table name: stem_table
@@ -31,7 +31,7 @@ Fields in the STEM table
 | stem_source_table   | 
 | stem_source_id      | 
 
-## Reading from NCRAS.tumour
+## Reading from tumour
 
 **ONLY NCRAS data within the linkage_coverage period and valid in the database linked (i.e. patients do not exists in the source_nok) to are used in our mapping.**
 ### Diagnosis

@@ -2,9 +2,9 @@
 layout: default
 title: STEM to Episode Event
 nav_order: 7
-parent: NCRAS
+parent: NCRASCR
 has_children: true
-description: "NCRAS to Episode Event"
+description: "NCRASCR to Episode Event"
 ---
 
 # CDM Table name: Episode Event

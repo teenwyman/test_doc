@@ -2,9 +2,9 @@
 layout: default
 title: STEM to Episode
 nav_order: 6
-parent: NCRAS
+parent: NCRASCR
 has_children: true
-description: "NCRAS to Episode"
+description: "NCRASCR to Episode"
 ---
 
 # CDM Table name: Episode
@@ -16,7 +16,7 @@ description: "NCRAS to Episode"
 All mapped cancer diagnoses are additionally mapped to the CDM Episode, with episode_concept_id set to [32533 (Disease Episode)](https://athena.ohdsi.org/search-terms/terms/32533) and episode_object_concept_id assigned to the corresponding condition_concept_id. 
 Furthermore, all related cancer diagnosis modifiers, regardless of their target domain, are linked to the CDM Episode using the same episode_id via episode_event. Please refer to STEM to Episode Event for more details.
 
-![](images/ncras_stem_to_episode_32533.png)
+![](images/ncrascr_stem_to_episode_32533.png)
 
 | Destination Field | Source field | Logic | Comment field | 
 | --- | --- | --- | --- |
