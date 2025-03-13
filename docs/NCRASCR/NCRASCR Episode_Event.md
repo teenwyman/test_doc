@@ -13,7 +13,7 @@ description: "NCRASCR to Episode Event"
 
 All mapped records, regardless of their target domain, that are associated with the same CDM Episode will be linked in the episode_event table using the same episode_id.
 
-![](images/ukb_cancer_stem_to_episode_event.png)
+![](images/ncrascr_stem_to_episode_event.png)
 
 | Destination Field | Source field | Logic | Comment field | 
 | --- | --- | --- | --- |

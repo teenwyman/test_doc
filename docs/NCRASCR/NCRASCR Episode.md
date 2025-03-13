@@ -42,7 +42,7 @@ Treatments not initially mapped to Procedure concepts are remapped to Procedure 
 
 Where possible, cancer treatments are associated with diagnoses using the e_cr_id field in the source data. This relationship is represented in the CDM Episode structure via episode_parent_id for Treatment Regimen Episodes.
 
-![](images/ncras_stem_to_episode_32531.png)
+![](images/ncrascr_stem_to_episode_32531.png)
 
 | Destination Field | Source field | Logic | Comment field | 
 | --- | --- | --- | --- |
