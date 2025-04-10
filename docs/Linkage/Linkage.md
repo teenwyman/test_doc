@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Linkage Source Data
+title: Linkage
 nav_order: 8
 description: "Linkage Source Data
 has_children: true
